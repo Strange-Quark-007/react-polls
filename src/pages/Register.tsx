@@ -19,7 +19,7 @@ const Register: React.FC = () => {
   const formRef = useRef<any>(null);
   const onFinish = (formData: formData) => {
     const userId = uuidv4();
-    const users:User[] = JSON.parse(localStorage.getItem("users") || "[]");
+    const users: User[] = JSON.parse(localStorage.getItem("users") || "[]");
     const { username, firstName, lastName, role, password } = formData;
     const newUser: User = {
       id: userId,
@@ -29,8 +29,10 @@ const Register: React.FC = () => {
       role: role,
       password: password,
     };
-    const existingUser = users.find(user=>user.username === formData.username);
-    if(existingUser){
+    const existingUser = users.find(
+      (user) => user.username === formData.username
+    );
+    if (existingUser) {
       message.error("Username already exists");
       return;
     }
@@ -54,12 +56,14 @@ const Register: React.FC = () => {
         >
           <Input prefix={<UserOutlined />} placeholder="First name" />
         </Form.Item>
+
         <Form.Item
           name="lastName"
           rules={[{ required: true, message: "Please input your last name!" }]}
         >
           <Input prefix={<UserOutlined />} placeholder="Last name" />
         </Form.Item>
+
         <Form.Item
           name="username"
           rules={[{ required: true, message: "Please input your username!" }]}
