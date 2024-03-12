@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { User } from "../types";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 
 interface FormData {
   username: string;
@@ -11,6 +12,8 @@ interface FormData {
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
+
   const onFinish = (formData: FormData) => {
     const allUsers: User[] = JSON.parse(localStorage.getItem("users") || "[]");
     const user = allUsers.find(user => user.username === formData.username);
@@ -31,6 +34,7 @@ const Login: React.FC = () => {
       "user",
       JSON.stringify({ id: id, username: username, role: role })
     );
+    setUser(user);
     navigate("/");
   };
 

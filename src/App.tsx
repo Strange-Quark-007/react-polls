@@ -1,22 +1,36 @@
+import React, { createContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import { User } from "./types";
 
-function App() {
+interface UserContextType {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
+
+export const UserContext = createContext<UserContextType>({
+  user: null,
+  setUser: () => null,
+});
+
+const App = () => {
+  const [user, setUser] = useState<User | null>(null);
+
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/">
-          <Route index element={<Home />} />
+      <UserContext.Provider value={{ user, setUser }}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </UserContext.Provider>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
