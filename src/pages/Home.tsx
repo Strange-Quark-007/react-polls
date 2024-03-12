@@ -16,10 +16,10 @@ const Home = () => {
     );
     const filteredPolls =
       user?.role !== "admin"
-        ? polls.filter(poll => poll.status !== "closed")
+        ? polls.filter((poll) => poll.status !== "closed")
         : polls;
     setAllPolls(filteredPolls);
-  }, [user]);
+  }, [user, allPolls]);
 
   useEffect(() => {
     if (!user) {
@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <div className="h-screen flex bg-blue-200">
       {user?.role === "admin" && <AddPoll />}
-      {allPolls.map(poll => (
+      {allPolls.map((poll) => (
         <PollCard poll={poll} key={poll.id} />
       ))}
     </div>
