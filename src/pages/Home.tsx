@@ -19,7 +19,7 @@ const Home = () => {
         ? polls.filter((poll) => poll.status !== "closed")
         : polls;
     setAllPolls(filteredPolls);
-  }, [user, allPolls]);
+  }, [user]);
 
   useEffect(() => {
     if (!user) {
@@ -27,11 +27,15 @@ const Home = () => {
     }
   }, [user]);
 
+  const updatePollsList = (pollsList: PollData[]) => {
+    setAllPolls(pollsList);
+  };
+
   return (
-    <div className="h-screen flex bg-blue-200">
-      {user?.role === "admin" && <AddPoll />}
+    <div className="flex flex-wrap bg-blue-200 gap-4 m-2">
+      {user?.role === "admin" && <AddPoll updatePolls={updatePollsList} />}
       {allPolls.map((poll) => (
-        <PollCard poll={poll} key={poll.id} />
+        <PollCard key={poll.id} poll={poll} updatePolls={updatePollsList} />
       ))}
     </div>
   );
