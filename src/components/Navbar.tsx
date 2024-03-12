@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
             Sign out
           </Button>
         ) : (
-          <>
+          <div className="flex">
             <Button type="link" className="text-white">
               <Link to="/login" className="nav-link">
                 Sign In
@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
                 Sign Up
               </Link>
             </Button>
-          </>
+          </div>
         )}
       </div>
     </Header>
