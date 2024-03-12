@@ -1,10 +1,12 @@
 import React, { createContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { User } from "./types";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
-import { User } from "./types";
+import PollUser from "./pages/PollUser";
+import PollAdmin from "./pages/PollAdmin";
 
 interface UserContextType {
   user: User | null;
@@ -27,6 +29,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="/user/:pollId" element={<PollUser />} />
+          <Route path="/admin/:pollId" element={<PollAdmin />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>
