@@ -7,12 +7,13 @@ export type User = {
   role: string;
 };
 
-type PollOption = {
+export type PollOption = {
   id: string;
   option: string;
+  votes:number;
 };
 
-type PollQuestion = {
+export type PollQuestion = {
   id: string;
   questionLabel: string;
   options: PollOption[];
