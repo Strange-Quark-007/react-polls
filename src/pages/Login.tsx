@@ -48,7 +48,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center bg-blue-200">
+    <main className="h-full flex justify-center items-center">
       <Form name="loginForm" onFinish={onFinish} className="w-72">
         <Form.Item
           name="username"
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </main>
   );
 };
 
