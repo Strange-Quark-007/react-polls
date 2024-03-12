@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Button, Modal, Input, Form, Card } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { PollData } from "../types";
 
 type FormData = {
@@ -13,8 +13,11 @@ type Question = {
   questionLabel: string;
   options: string[];
 };
+interface Props {
+  updatePolls: (newPoll: PollData[]) => void;
+}
 
-const AddPoll = () => {
+const AddPoll: React.FC<Props> = ({ updatePolls }) => {
   const [pollForm] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -28,7 +31,7 @@ const AddPoll = () => {
   };
 
   const onFinish = (values: FormData) => {
-    const poll = {
+    const poll: PollData = {
       ...values,
       id: uuidv4(),
       status: "open",
@@ -45,9 +48,11 @@ const AddPoll = () => {
     const allPolls: PollData[] = JSON.parse(
       localStorage.getItem("allPolls") || "[]"
     );
-    localStorage.setItem("allPolls", JSON.stringify([...allPolls, poll]));
+    const updatedPolls = [...allPolls, poll];
+    localStorage.setItem("allPolls", JSON.stringify(updatedPolls));
     pollForm.resetFields();
     setIsModalVisible(false);
+    updatePolls(updatedPolls);
   };
 
   const renderOptions = (optionFields: any, { remove, add }: any) => (
@@ -66,9 +71,11 @@ const AddPoll = () => {
             <Input placeholder={`Option ${index + 1}`} className="w-60" />
           </Form.Item>
           {index > 1 && (
-            <Button className="ml-2" onClick={() => remove(field.name)}>
-              -
-            </Button>
+            <Button
+              className="ml-2"
+              icon={<MinusOutlined />}
+              onClick={() => remove(field.name)}
+            />
           )}
         </div>
       ))}
@@ -99,9 +106,11 @@ const AddPoll = () => {
               <Input className="w-72" />
             </Form.Item>
             {index > 0 && (
-              <Button className="ml-2" onClick={() => remove(field.name)}>
-                -
-              </Button>
+              <Button
+                className="ml-2"
+                icon={<MinusOutlined />}
+                onClick={() => remove(field.name)}
+              />
             )}
           </div>
           <Form.Item {...field} label="Options" name={[field.name, "options"]}>
@@ -123,7 +132,7 @@ const AddPoll = () => {
 
   return (
     <>
-      <Card className="size-52 flex flex-col items-center justify-evenly border-2 m-4 border-black bg-transparent">
+      <Card className="size-52 flex flex-col items-center justify-evenly border-2 border-black bg-transparent">
         <h1 className="text-center font-bold mb-8">Create a new poll</h1>
         <Button type="dashed" icon={<PlusOutlined />} onClick={showModal}>
           Add Poll
