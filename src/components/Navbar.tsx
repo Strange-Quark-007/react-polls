@@ -2,11 +2,17 @@ import { Layout, Button } from "antd";
 const { Header } = Layout;
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   const handleSignOut = () => {
     sessionStorage.clear();
@@ -15,7 +21,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <Header className="flex justify-between items-center">
+    <Header className="flex justify-between items-center w-full">
       <div className="text-white text-lg">React Poll</div>
       <Button type="primary" className="text-white">
         <Link to="/" className="nav-link">

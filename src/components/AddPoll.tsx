@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Button, Modal, Input, Form, Card } from "antd";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { PollData } from "../types";
+import useAllPolls from "../hooks/allPosts";
 
 type FormData = {
   pollLabel: string;
@@ -13,12 +14,14 @@ type Question = {
   questionLabel: string;
   options: string[];
 };
+
 interface Props {
   updatePolls: (newPoll: PollData[]) => void;
 }
 
 const AddPoll: React.FC<Props> = ({ updatePolls }) => {
   const [pollForm] = Form.useForm();
+  const allPolls = useAllPolls();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -45,9 +48,6 @@ const AddPoll: React.FC<Props> = ({ updatePolls }) => {
         })),
       })),
     };
-    const allPolls: PollData[] = JSON.parse(
-      localStorage.getItem("allPolls") || "[]"
-    );
     const updatedPolls = [...allPolls, poll];
     localStorage.setItem("allPolls", JSON.stringify(updatedPolls));
     pollForm.resetFields();

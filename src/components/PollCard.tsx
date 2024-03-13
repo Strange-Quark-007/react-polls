@@ -1,7 +1,9 @@
 import { Card, Button } from "antd";
-import { PollData, User } from "../types";
+import { PollData } from "../types";
 import { useNavigate } from "react-router-dom";
 import ClosePollButton from "./ClosePollButton";
+import { useContext } from "react";
+import { UserContext } from "../App";
 
 type VoteFormProps = {
   poll: PollData;
@@ -10,11 +12,11 @@ type VoteFormProps = {
 
 const PollCard: React.FC<VoteFormProps> = ({ poll, updatePolls }) => {
   const navigate = useNavigate();
-  const user: User = JSON.parse(sessionStorage.getItem("user") || "{}");
+  const { user } = useContext(UserContext);
   const isAdmin = user?.role === "admin";
 
   const handleView = () => {
-    navigate(`/${user.role}/${poll.id}`);
+    navigate(`/${user?.role}/${poll.id}`);
   };
 
   return (

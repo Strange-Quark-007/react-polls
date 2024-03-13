@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Popover } from "antd";
 import { PollData } from "../types";
+import useAllPolls from "../hooks/allPosts";
 
 interface ClosePollButtonProps {
   poll: PollData;
@@ -11,12 +12,10 @@ const ClosePollButton: React.FC<ClosePollButtonProps> = ({
   poll,
   updatePolls,
 }) => {
+  const allPolls = useAllPolls();
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
 
   const handleClosePoll = () => {
-    const allPolls: PollData[] = JSON.parse(
-      localStorage.getItem("allPolls") || "[]"
-    );
     const updatedPolls = allPolls.map((item) => {
       if (item.id === poll.id) {
         const updatedStatus: "closed" | "open" = "closed";
