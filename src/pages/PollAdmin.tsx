@@ -9,11 +9,11 @@ import { UserContext } from "../App";
 
 const { Title } = Typography;
 
-const PollAdmin: React.FC = () => {
-  const { user } = useContext(UserContext);
+const PollAdmin = () => {
+  const navigate = useNavigate();
   const { pollId } = useParams();
   const allPolls = useAllPolls();
-  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const [poll, setPoll] = useState<PollData>();
   const [selectedQuestion, setSelectedQuestion] = useState<PollQuestion>();
 

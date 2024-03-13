@@ -38,10 +38,10 @@ const AddPoll: React.FC<Props> = ({ updatePolls }) => {
       ...values,
       id: uuidv4(),
       status: "open",
-      questions: values.questions.map((question: any) => ({
+      questions: values.questions.map((question: Question) => ({
         ...question,
         id: uuidv4(),
-        options: question.options.map((option: any) => ({
+        options: question.options.map((option: string) => ({
           option,
           votes: 0,
           id: uuidv4(),

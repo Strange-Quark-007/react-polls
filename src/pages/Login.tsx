@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { User } from "../types";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
+import { User } from "../types";
 
 interface FormData {
   username: string;
@@ -39,11 +39,7 @@ const Login: React.FC = () => {
     }
 
     message.success("Login successful");
-    const { id, username, role } = user;
-    sessionStorage.setItem(
-      "user",
-      JSON.stringify({ id: id, username: username, role: role })
-    );
+    sessionStorage.setItem("user", JSON.stringify(user));
     setUser(user);
   };
 

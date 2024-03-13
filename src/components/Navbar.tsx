@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { useContext, useEffect } from "react";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
 
@@ -35,16 +35,16 @@ const Navbar: React.FC = () => {
           </Button>
         ) : (
           <div className="flex">
-            <Button type="link" className="text-white">
-              <Link to="/login" className="nav-link">
+            <Link to="/login" className="nav-link">
+              <Button type="link" className="text-white">
                 Sign In
-              </Link>
-            </Button>
-            <Button type="link" className="text-white">
-              <Link to="/register" className="nav-link">
+              </Button>
+            </Link>
+            <Link to="/register" className="nav-link">
+              <Button type="link" className="text-white">
                 Sign Up
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         )}
       </div>

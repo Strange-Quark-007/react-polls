@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Radio, Button, Typography, List, message } from "antd";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { PollData, PollQuestion, PollOption } from "../types";
@@ -11,7 +11,7 @@ interface SelectedOptions {
   [key: string]: string;
 }
 
-const PollUser: React.FC = () => {
+const PollUser = () => {
   const { pollId } = useParams();
   const allPolls = useAllPolls();
   const navigate = useNavigate();
@@ -73,8 +73,9 @@ const PollUser: React.FC = () => {
       message.success("Voted!");
     }
   };
+
   const updateVotedList = () => {
-    let pollList: string[] = JSON.parse(
+    const pollList: string[] = JSON.parse(
       localStorage.getItem(user?.id || "") || "[]"
     );
     pollList.push(poll!.id);

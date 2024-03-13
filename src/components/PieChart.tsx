@@ -5,7 +5,6 @@ import {
   Legend,
   Colors,
 } from "chart.js";
-import "chartjs-plugin-datalabels";
 import { Pie } from "react-chartjs-2";
 import { Typography } from "antd";
 const { Title } = Typography;
