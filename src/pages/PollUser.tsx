@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Radio, Button, Typography, List, message } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { PollData, PollQuestion, PollOption } from "../types";
 import { UserContext } from "../App";
+import useAllPolls from "../hooks/allPosts";
 
 const { Title } = Typography;
 
@@ -12,15 +13,17 @@ interface SelectedOptions {
 
 const PollUser: React.FC = () => {
   const { pollId } = useParams();
+  const allPolls = useAllPolls();
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const [poll, setPoll] = useState<PollData>();
   const [userVoted, setUserVoted] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({});
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    const allPolls: PollData[] = JSON.parse(
-      localStorage.getItem("allPolls") || "[]"
-    );
+    if (user?.role !== "user") {
+      navigate("/");
+    }
     const pollData = allPolls.find((item) => item.id === pollId);
     setPoll(pollData);
 
@@ -31,7 +34,7 @@ const PollUser: React.FC = () => {
     const userVoted = userPollList.includes(pollData?.id || "");
 
     setUserVoted(userVoted);
-  }, [pollId]);
+  }, [allPolls]);
 
   const handleOptionSelect = (questionId: string, optionId: string) => {
     setSelectedOptions((prevState) => ({
@@ -41,10 +44,7 @@ const PollUser: React.FC = () => {
   };
 
   const updatePoll = (poll: PollData) => {
-    const polls: PollData[] = JSON.parse(
-      localStorage.getItem("allPolls") || "[]"
-    );
-    const updatedPolls = polls.map((item) =>
+    const updatedPolls = allPolls.map((item) =>
       item.id === poll.id ? poll : item
     );
     localStorage.setItem("allPolls", JSON.stringify(updatedPolls));
@@ -52,6 +52,10 @@ const PollUser: React.FC = () => {
 
   const handleSubmitVote = () => {
     console.log("Selected options:", selectedOptions);
+    if (Object.keys(selectedOptions).length !== poll?.questions.length) {
+      message.error("Please select all options before submitting.");
+      return;
+    }
 
     const newPoll = poll && { ...poll };
     if (newPoll) {
