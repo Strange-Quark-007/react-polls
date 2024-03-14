@@ -34,7 +34,7 @@ const PollUser = () => {
     const userVoted = userPollList.includes(pollData?.id || "");
 
     setUserVoted(userVoted);
-  }, [allPolls]);
+  }, []);
 
   const handleOptionSelect = (questionId: string, optionId: string) => {
     setSelectedOptions((prevState) => ({
@@ -51,7 +51,6 @@ const PollUser = () => {
   };
 
   const handleSubmitVote = () => {
-    console.log("Selected options:", selectedOptions);
     if (Object.keys(selectedOptions).length !== poll?.questions.length) {
       message.error("Please select all options before submitting.");
       return;
