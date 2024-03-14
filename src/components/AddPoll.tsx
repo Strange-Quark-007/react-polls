@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Button, Modal, Input, Form, Card } from "antd";
+import { Button, Modal, Input, Form, Card, message } from "antd";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { PollData } from "../types";
 import useAllPolls from "../hooks/allPosts";
@@ -51,6 +51,7 @@ const AddPoll: React.FC<Props> = ({ updatePolls }) => {
     const updatedPolls = [...allPolls, poll];
     localStorage.setItem("allPolls", JSON.stringify(updatedPolls));
     pollForm.resetFields();
+    message.success("Poll Created!");
     setIsModalVisible(false);
     updatePolls(updatedPolls);
   };
@@ -99,7 +100,7 @@ const AddPoll: React.FC<Props> = ({ updatePolls }) => {
                 { pattern: /\S/, message: "Field cannot be blank!" },
               ]}
             >
-              <Input className="w-72" />
+              <Input placeholder={`Question ${index + 1}`} className="w-72" />
             </Form.Item>
             {index > 0 && (
               <Button
@@ -150,7 +151,7 @@ const AddPoll: React.FC<Props> = ({ updatePolls }) => {
               { pattern: /\S/, message: "Field cannot be blank!" },
             ]}
           >
-            <Input />
+            <Input placeholder="Poll Label" />
           </Form.Item>
           <Form.List name="questions" initialValue={[""]}>
             {(quesFields, { remove, add }) =>

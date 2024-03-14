@@ -66,7 +66,7 @@ const Login: React.FC = () => {
           <Input
             prefix={<LockOutlined />}
             type="password"
-            placeholder="Password"
+            placeholder="password"
           />
         </Form.Item>
 

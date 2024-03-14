@@ -31,7 +31,7 @@ const Navbar = () => {
       <div>
         {user ? (
           <Button type="link" className="text-white" onClick={handleSignOut}>
-            Sign out
+            Sign Out
           </Button>
         ) : (
           <div className="flex">
