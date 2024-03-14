@@ -34,7 +34,7 @@ const PollUser = () => {
     const userVoted = userPollList.includes(pollData?.id || "");
 
     setUserVoted(userVoted);
-  }, []);
+  }, [allPolls]);
 
   const handleOptionSelect = (questionId: string, optionId: string) => {
     setSelectedOptions((prevState) => ({
