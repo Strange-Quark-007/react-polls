@@ -48,14 +48,20 @@ const Login: React.FC = () => {
       <Form name="loginForm" onFinish={onFinish} className="w-72">
         <Form.Item
           name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[
+            { required: true, message: "Please input your username!" },
+            { pattern: /\S/, message: "Username cannot be blank!" },
+          ]}
         >
           <Input prefix={<UserOutlined />} placeholder="username" />
         </Form.Item>
 
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[
+            { required: true, message: "Please input your password!" },
+            { pattern: /\S/, message: "Password cannot be blank!" },
+          ]}
         >
           <Input
             prefix={<LockOutlined />}

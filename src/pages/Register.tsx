@@ -52,28 +52,40 @@ const Register: React.FC = () => {
       >
         <Form.Item
           name="firstName"
-          rules={[{ required: true, message: "Please input your first name!" }]}
+          rules={[
+            { required: true, message: "Please input your first name!" },
+            { pattern: /\S/, message: "Field cannot be blank!" },
+          ]}
         >
           <Input prefix={<UserOutlined />} placeholder="First name" />
         </Form.Item>
 
         <Form.Item
           name="lastName"
-          rules={[{ required: true, message: "Please input your last name!" }]}
+          rules={[
+            { required: true, message: "Please input your last name!" },
+            { pattern: /\S/, message: "Field cannot be blank!" },
+          ]}
         >
           <Input prefix={<UserOutlined />} placeholder="Last name" />
         </Form.Item>
 
         <Form.Item
           name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[
+            { required: true, message: "Please input your username!" },
+            { pattern: /\S/, message: "Field cannot be blank!" },
+          ]}
         >
           <Input prefix={<UserOutlined />} placeholder="Username" />
         </Form.Item>
 
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[
+            { required: true, message: "Please input your password!" },
+            { pattern: /\S/, message: "Field cannot be blank!" },
+          ]}
         >
           <Input
             prefix={<LockOutlined />}
@@ -87,6 +99,7 @@ const Register: React.FC = () => {
           dependencies={["password"]}
           rules={[
             { required: true, message: "Please confirm your password!" },
+            { pattern: /\S/, message: "Field cannot be blank!" },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue("password") === value) {

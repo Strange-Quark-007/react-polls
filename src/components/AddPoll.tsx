@@ -62,10 +62,8 @@ const AddPoll: React.FC<Props> = ({ updatePolls }) => {
           <Form.Item
             {...field}
             rules={[
-              {
-                required: true,
-                message: "Please input the option!",
-              },
+              { required: true, message: "Please input the option!" },
+              { pattern: /\S/, message: "Field cannot be blank!" },
             ]}
           >
             <Input placeholder={`Option ${index + 1}`} className="w-60" />
@@ -97,10 +95,8 @@ const AddPoll: React.FC<Props> = ({ updatePolls }) => {
               label={`Question ${index + 1}`}
               name={[field.name, "questionLabel"]}
               rules={[
-                {
-                  required: true,
-                  message: "Please input the question!",
-                },
+                { required: true, message: "Please input the question!" },
+                { pattern: /\S/, message: "Field cannot be blank!" },
               ]}
             >
               <Input className="w-72" />
@@ -150,10 +146,8 @@ const AddPoll: React.FC<Props> = ({ updatePolls }) => {
             label="Poll Label"
             name="pollLabel"
             rules={[
-              {
-                required: true,
-                message: "Please input the label!",
-              },
+              { required: true, message: "Please input the label!" },
+              { pattern: /\S/, message: "Field cannot be blank!" },
             ]}
           >
             <Input />
