@@ -106,3 +106,23 @@ export const mockAddPoll = {
   ],
   status: "open",
 };
+
+export const mockDataWithVotes = {
+  questionLabel: "Question A",
+  id: "Q1",
+  options: [
+    { option: "Option 1", votes: 10, id: "1" },
+    { option: "Option 2", votes: 20, id: "2" },
+    { option: "Option 3", votes: 15, id: "3" },
+  ],
+};
+
+export const mockDataWithoutVotes = {
+  questionLabel: "Question B",
+  id: "Q1",
+  options: [
+    { option: "Option 1", votes: 0, id: "1" },
+    { option: "Option 2", votes: 0, id: "2" },
+    { option: "Option 3", votes: 0, id: "3" },
+  ],
+};
